@@ -7,10 +7,28 @@
 			<field name="arch" type="xml">
 				<form string="Course Form">
                     <sheet> <!-- especie de tablita -->
-                        <group><!-- agrupa los fields definidos en openacademy_course.py -->
+
+                        
+                    <!-- vista simple con nombre y descripcion al momento de abrir cada elemento (curso)		
+
+                        <group>
                             <field name="name"/>
                             <field name="description"/>
                         </group>
+
+
+                    -->
+                       <group><!-- probando con notebook -->
+                            <field name="name"/>
+                        </group> 
+                        <notebook> 	
+                        	<page string="Description">
+                        		<field name="description"/>
+                        	</page>
+                            <page string="About">
+                                This is an example of notebooks
+                            </page>
+                        </notebook>                        		
                     </sheet>
                 </form>	
 
@@ -18,6 +36,32 @@
 			</field>
 		</record>				
 
+
+		<!-- la vista tree no es jerarquica-->
+        <record model="ir.ui.view" id="course_tree_view">
+            <field name="name">course.tree.view</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml"> <!-- se considera mala practica multilinea en un tree view-->
+            	<tree string="Tree Course">
+            		<field name="name"/>
+            		<field name="descripTion"/>
+            	</tree>	
+            </field>
+        </record>	
+
+		<!-- al clickear la barra de busqueda se obtienen opciones para buscar por nombre o por descripcion-->
+        <record model="ir.ui.view" id="course_search_view">
+            <field name="name">course.search.view</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="description"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- se encarga de la vista de los 'courses', de como se verán, del tipo de vista y de la ayuda, es lo que acciona cada curso-->
 		<record model="ir.actions.act_window" id="course_list_action">
 	        <field name="name">Courses</field>
 	        <field name="res_model">openacademy.course</field>
