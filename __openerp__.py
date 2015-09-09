@@ -26,11 +26,12 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        #'templates.xml',
+        'view/openacademy_course_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
-        #'demo.xml',
+        # para que odoo reconozca el .xml
+        'demo/openacademy_course_demo.xml',
     ],
     'instalable': True,
     'auto_install':False,
