@@ -9,16 +9,16 @@
                     <sheet> <!-- especie de tablita -->
 
                         
-                    <!-- vista simple con nombre y descripcion al momento de abrir cada elemento (curso)		
+                    <!-- vista simple con nombre y descripcion al momento de abrir cada elemento (curso)        
 
+                    -->
                         <group>
                             <field name="name"/>
                             <field name="description"/>
                         </group>
 
-
-                    -->
-                       <group><!-- probando con notebook -->
+                    <!-- probando con notebook 
+                       <group>
                             <field name="name"/>
                         </group> 
                         <notebook> 	
@@ -28,7 +28,8 @@
                             <page string="About">
                                 This is an example of notebooks
                             </page>
-                        </notebook>                        		
+                        </notebook>              
+                        -->          		
                     </sheet>
                 </form>	
 
@@ -44,12 +45,12 @@
             <field name="arch" type="xml"> <!-- se considera mala practica multilinea en un tree view-->
             	<tree string="Tree Course">
             		<field name="name"/>
-            		<field name="descripTion"/>
+            		<field name="description"/>
             	</tree>	
             </field>
         </record>	
 
-		<!-- al clickear la barra de busqueda se obtienen opciones para buscar por nombre o por descripcion-->
+		<!-- al clickear la barra de busqueda se obtienen opciones para buscar por nombre o por descripcion
         <record model="ir.ui.view" id="course_search_view">
             <field name="name">course.search.view</field>
             <field name="model">openacademy.course</field>
@@ -60,6 +61,7 @@
                 </search>
             </field>
         </record>
+		-->
 
         <!-- se encarga de la vista de los 'courses', de como se verán, del tipo de vista y de la ayuda, es lo que acciona cada curso-->
 		<record model="ir.actions.act_window" id="course_list_action">
