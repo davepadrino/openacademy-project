@@ -1,6 +1,6 @@
 # openacademy-project
 Proyecto de prueba
 
-Este es el archivo "LEEME" del proyecto de prueba
+Este es el archivo "LEEME" del proyecto openacademy
 
-hola
+probando curso con LINUX!! PRUEBA DE GIT FINAL

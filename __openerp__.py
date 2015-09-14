@@ -2,7 +2,7 @@
 {
     'name': "Open Academy",
 
-    'summary': """Manage trainings""",
+    'summary': """Manage trainings mismos""",
 
     'description': """
         Open Academy module for managing trainings:
