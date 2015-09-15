@@ -5,7 +5,8 @@
              action="openacademy.course_list_action"
              It is not required when it is the same module -->
 
-        <!-- session form view: muestra directamente lo definido en openacademy_session.py -->
+        <!-- session form view: muestra directamente lo definido en openacademy_session.py
+        y como se vera en form view y al momento de crear y editar -->
         <record model="ir.ui.view" id="session_form_view">
             <field name="name">session.form</field>
             <field name="model">openacademy.session</field>
@@ -27,6 +28,20 @@
             </field>
         </record>
 
+        <!-- como se verá en la lista principal, la tree view -->
+        <record model="ir.ui.view" id="session_tree_view">
+            <field name="name">session.tree</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <tree string="Session tree">
+                    <field name="name"/>
+                    <field name="course_id"/>
+                </tree>
+            </field>
+        </record>        
+
+
+ <!-- se define el nombre del elemento en el menu a la izquierda, de que archivo .py heredará, el tipo de vista al crear y los tipos de vista que soportará  -->
         <record model="ir.actions.act_window" id="session_list_action">
             <field name="name">Sessions</field>
             <field name="res_model">openacademy.session</field>

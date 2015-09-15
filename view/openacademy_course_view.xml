@@ -7,17 +7,29 @@
 			<field name="arch" type="xml">
 				<form string="Course Form">
                     <sheet> <!-- especie de tablita -->
-
                         
-                    <!-- vista simple con nombre y descripcion al momento de abrir cada elemento (curso)        
-
+                    <!-- vista simple con nombre y descripcion al momento de abrir, crear o editar cada elemento (curso)        
                     -->
                         <group>
                             <field name="name"/>
-                            <field name="description"/>
                             <field name="responsible_id"/>
-
                         </group>
+                        <notebook>  
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                            <page string="About">
+                                ejemplo de notebooks
+                            </page>
+                            <page string="Sessions"> <!-- si el <tree> me va a mostrar las sesiones como se definieron en openacademy_Session_view(*1) incluyendo la vista formulario (la cual no interesa) por eso se coloca la tree-->
+                                <field name="session_ids">
+                                    <tree string = "Sesiones registradas" editable ="botom"> <!--para que solo me pica los campos dentro del tree, de lo contrario me traeria la vista formulario pidiendome nombre del curso -->
+                                        <field name="name"/>
+                                        <field name="instructor_id"/>
+                                    </tree>      <!--se crea una sub-vista para ver lo que me conviene -->
+                                </field>   
+                            </page>
+                        </notebook> 
 
                     <!-- probando con notebook 
                        <group>
@@ -42,12 +54,12 @@
 
 		<!-- la vista tree no es jerarquica-->
         <record model="ir.ui.view" id="course_tree_view">
-            <field name="name">course.tree.view</field>
-            <field name="model">openacademy.course</field>
+            <field name="name">course.tree.view</field>   <!-- nombre de la vista-->
+            <field name="model">openacademy.course</field>   <!-- nombre del modelo-->
             <field name="arch" type="xml"> <!-- se considera mala practica multilinea en un tree view-->
             	<tree string="Tree Course">
             		<field name="name"/>
-            		<field name="description"/>
+            		<field name="responsible_id"/>
             	</tree>	
             </field>
         </record>	
