@@ -23,12 +23,14 @@
                             <field name="duration"/>
                             <field name="seats"/>
                         </group>
+                        <label for="attendee_ids"/> <!-- mismo nombre que el name o id del field-->
+                        <field name="attendee_ids"/>
                     </sheet>
                 </form>
             </field>
         </record>
 
-        <!-- como se verá en la lista principal, la tree view -->
+        <!-- como se verá en la lista principal, la tree view (*1)-->
         <record model="ir.ui.view" id="session_tree_view">
             <field name="name">session.tree</field>
             <field name="model">openacademy.session</field>

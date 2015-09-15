@@ -9,4 +9,4 @@ class Session(models.Model):
 	seats = fields.Integer(string="Number of seats")
 	instructor_id = fields.Many2one('res.partner', string="Instructor")
 	course_id = fields.Many2one('openacademy.course', ondelete='cascade', string="Course", required=True) #una sesion tiene un instructor
-
+	attendee_ids = fields.Many2many('res.partner', string="Attendees")  #Muchos asistentes a muchas sesiones
