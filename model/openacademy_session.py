@@ -3,6 +3,12 @@ from openerp import models, fields
 
 class Session(models.Model):
 	_name = 'openacademy.session'
+	#para que aparezca un nombre por defecto, en la creacion de la sesion, en este caso aparecería un /
+	# @api.model
+	# def _get_default_name(self):
+		#print ('self', self)
+		#return "/"
+	#name = fields.Char(required=True, default = _get_default_name)	
 	name = fields.Char(required=True)
 	start_date = fields.Date()
 	duration = fields.Float(digits=(6, 2), help="Duration in days")
