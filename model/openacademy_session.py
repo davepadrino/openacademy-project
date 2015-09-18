@@ -7,6 +7,8 @@ class Session(models.Model):
 	# @api.model
 	# def _get_default_name(self):
 		#print ('self', self)
+		#print ('_get_default_name::self', self)
+		#print ('_get_default_name::self.cr', self.cr)
 		#return "/"
 	#name = fields.Char(required=True, default = _get_default_name)	
 	name = fields.Char(required=True)

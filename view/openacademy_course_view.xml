@@ -96,7 +96,7 @@
 	    <menuitem id="main_openacademy_menu" name="Bienvenidos a Open Academy"/>
 
 	     <!-- first level menu a la izquierda-->
-		<menuitem id="openacademy_menu" name="Open Academy" parent="main_openacademy_menu"/>
+		<menuitem id="openacademy_menu" name="Open Academy (Ítem 1)" parent="main_openacademy_menu"/>
 
 
 	     <!-- este menu aparecera luego de su padre "openacademy_menu" y de su  accion "course_list_action"-->

@@ -14,9 +14,10 @@
                 <form string="Session Form">
                     <sheet>
                          <group string = "General">
+                            <!-- <field name="course_id" options="{'no_create': True}"/> quita la opcion de crear al desplegar el dropdown-->
+                            <field name="course_id" widget = "selection"/> <!-- solo seleccion, elimina el elemento para crear-->
                             <field name="name"/>
                             <field name="instructor_id"/>
-                            <field name="course_id"/>
                         </group>
                         <group string = "Detalles">
                             <field name="start_date"/>
