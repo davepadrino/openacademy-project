@@ -12,7 +12,7 @@ class Session(models.Model):
 		#return "/"
 	#name = fields.Char(required=True, default = _get_default_name)	
 	name = fields.Char(required=True)
-	start_date = fields.Date()
+	start_date = fields.Date(default=fields.Date.today)
 	duration = fields.Float(digits=(6, 2), help="Duracion en dias")
 	seats = fields.Integer(string="Numero de Asientos")
 	instructor_id = fields.Many2one('res.partner', string="Instructor", domain=['|', ('instructor', '=', True),('category_id.name', 'ilike', "Teacher")])
@@ -26,7 +26,8 @@ class Session(models.Model):
 	course_id = fields.Many2one('openacademy.course', ondelete='cascade', string="Course", required=True) #una sesion tiene un instructor
 	attendee_ids = fields.Many2many('res.partner', string="Attendees")  #Muchos sesiones a muchos asistentes (partners)
 	taken_seats = fields.Float(string="Asientos Ocupados", compute='_taken_seats') 
-
+	active = fields.Boolean(default=True)  # Active sirve para eliminado lógico, desaparece de la pantalla de activos, 
+											#se puede buscar con una busqueda avanzada por los campos activos = False
 
 	''' 
 	# _taken_seats: es el compute field

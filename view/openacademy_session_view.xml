@@ -18,6 +18,7 @@
                             <field name="course_id" widget = "selection"/> <!-- solo seleccion, elimina el elemento para crear-->
                             <field name="name"/>
                             <field name="instructor_id"/>
+                            <field name="active"/>
                         </group>
                         <group string = "Detalles">
                             <field name="start_date"/>
