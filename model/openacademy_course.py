@@ -16,3 +16,15 @@ class Course(models.Model):
 	description = fields.Text(string='Description')  #asume required=False, el string es lo que se vera en el formulario
 	responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True)  #un curso tiene un responsable
 	session_ids = fields.One2many('openacademy.session', 'course_id')
+	'''
+	Permite hacer _sql_constraints a nivel de base de datos
+	'''
+	_sql_constraints = [
+		('name_description_check',
+		'CHECK(name != description)',
+		"El titulo del curso no puede ser la descripcion"),
+
+		('name_unique',
+		'UNIQUE(name)',
+		"El titulo del curso debe ser unico"),
+    ]	

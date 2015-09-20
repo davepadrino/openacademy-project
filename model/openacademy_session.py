@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api
+from openerp import models, fields, api, exceptions
 
 class Session(models.Model):
 	_name = 'openacademy.session'
@@ -39,6 +39,16 @@ class Session(models.Model):
 
 
 	@api.depends() -> Este Decorador es utilizado para campos Calculados, o campos que requieran obtener un listado de valores
+
+	tambien puediera escribirse como
+
+	@api.depends('seats', 'attendee_ids')
+    def _taken_seats(self):
+        for r in self:
+            if not r.seats:
+                r.taken_seats = 0.0
+            else:
+                r.taken_seats = 100.0 * len(r.attendee_ids) / r.seats
 	'''
 
 	@api.one
@@ -49,3 +59,40 @@ class Session(models.Model):
 		else:
 			self.taken_seats = 100.0 * len(self.attendee_ids) / self.seats
 
+	''' 
+	El onchange permite que al momento de modificar un campo y se retire el cursor de el, se active la funcion y se compruebe 
+	si hay  no errores
+	'''
+	@api.onchange('seats', 'attendee_ids')
+	def _verify_valid_seats(self):
+		if self.seats < 0:
+			return {
+				'warning': {
+					'title': "Valores incorrectos de asientos",
+					'message': "El numero de asientos no puede ser negativo",
+				},
+			}
+		if self.seats < len(self.attendee_ids):
+			return {
+                'warning': {
+                    'title': "MUCHOS ASISTENTES!",
+                    'message': "Aumenta el numero de Asientos o elimina algunos asistentes",
+                },
+            }
+
+	''' 
+	El constrains permite hacer validaciones a nivel de API de python, otra forma de hacer la que está below es:
+
+	@api.one
+	@api.constrains('instructor_id', 'attendee_ids')
+	def _check_instructor_not_in_attendees(self):
+			if self.instructor_id and self.instructor_id in self.attendee_ids:
+				raise exceptions.ValidationError("A session's instructor can't be an attendee") 
+
+
+	'''
+	@api.constrains('instructor_id', 'attendee_ids')
+	def _check_instructor_not_in_attendees(self):
+			for r in self:
+				if r.instructor_id and r.instructor_id in r.attendee_ids:   #atendee_ids es un listado
+					raise exceptions.ValidationError("Un instructor no puede ser su mismo asistente")            

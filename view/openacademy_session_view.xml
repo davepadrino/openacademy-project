@@ -17,6 +17,7 @@
                             <!-- <field name="course_id" options="{'no_create': True}"/> quita la opcion de crear al desplegar el dropdown-->
                             <field name="course_id" widget = "selection"/> <!-- solo seleccion, elimina el elemento para crear-->
                             <field name="name"/>
+                            <field name="taken_seats" widget="progressbar"/>
                             <field name="instructor_id"/>
                             <field name="active"/>
                         </group>
@@ -24,10 +25,9 @@
                             <field name="start_date"/>
                             <field name="duration"/>
                             <field name="seats"/>
-                            <field name="taken_seats" widget="progressbar"/>
                         </group>
                         <label for="attendee_ids"/> <!-- mismo nombre que el name o id del field-->
-                        <field name="attendee_ids"/>
+                        <field name="attendee_ids"/>   <!-- Muestra directamente nombre, email y telefono del asistente heredado de res.partner -->
                     </sheet>
                 </form>
             </field>
