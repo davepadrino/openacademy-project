@@ -69,7 +69,19 @@
                     <field name="name"/>
                 </gantt>
             </field>
-        </record>       
+        </record> 
+
+        <!-- Graph View -->
+        <record model="ir.ui.view" id="openacademy_session_graph_view">
+            <field name="name">openacademy.session.graph</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <graph string="Participations by Courses">
+                    <field name="course_id"/>    <!-- eje X -->
+                    <field name="attendees_count" type="measure"/>   <!-- eje Y , type es el tipo de grafico-->
+                </graph>
+            </field>
+        </record>              
 
         <!-- se define el nombre del elemento en el menu a la izquierda, de que archivo .py heredará, el tipo de vista al crear y los tipos de vista que soportará  -->
 
@@ -77,7 +89,7 @@
             <field name="name">Sessions</field>
             <field name="res_model">openacademy.session</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form,calendar,gantt</field>
+            <field name="view_mode">tree,form,calendar,gantt,graph</field>  <!-- orden en que se muestran los botones en la barra superior derecha -->
         </record>
 
         <menuitem id="session_menu" name="Sessions"

@@ -39,7 +39,7 @@ class Session(models.Model):
 	end_date = fields.Date(string="Fecha de final", store=True, compute='_get_end_date', inverse='_set_end_date')
 
 	hours = fields.Float(string="Duration in hours", compute='_get_hours', inverse='_set_hours')
-
+	attendees_count = fields.Integer(string="Attendees count", compute='_get_attendees_count', store=True)
 
 	''' 
 	# _taken_seats: es el compute field
@@ -148,3 +148,8 @@ class Session(models.Model):
 	def _set_hours(self):
 		for r in self:
 			r.duration = r.hours / 24			
+
+	@api.depends('attendee_ids')
+	def _get_attendees_count(self):
+		for r in self:
+			r.attendees_count = len(r.attendee_ids)			
