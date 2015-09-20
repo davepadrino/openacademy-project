@@ -5,7 +5,7 @@
         <record model="ir.ui.view" id="partner_instructor_form_view">
             <field name="name">partner.instructor</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/><!-- nuevo campo inherit_id hereda de 'base.view_partner_form'--> 
+            <field name="inherit_id" ref="base.view_partner_form"/><!-- nuevo campo inherit_id hereda de 'base.view_partner_form', que sirve como referencia--> 
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page string="Sessions">

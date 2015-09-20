@@ -35,6 +35,7 @@
         # para que odoo reconozca el .xml
         'demo/openacademy_course_demo.xml',
     ],
-    'instalable': True,
+    'installable': True,
     'auto_install':False,
+    'active': False,
 }

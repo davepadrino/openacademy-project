@@ -23,6 +23,7 @@
                             <field name="start_date"/>
                             <field name="duration"/>
                             <field name="seats"/>
+                            <field name="taken_seats" widget="progressbar"/>
                         </group>
                         <label for="attendee_ids"/> <!-- mismo nombre que el name o id del field-->
                         <field name="attendee_ids"/>
@@ -39,6 +40,7 @@
                 <tree string="Session tree">
                     <field name="name"/>
                     <field name="course_id"/>
+                    <field name="taken_seats" widget="progressbar"/>
                 </tree>
             </field>
         </record>        
