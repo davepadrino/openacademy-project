@@ -12,6 +12,14 @@
             <field name="model">openacademy.session</field>
             <field name="arch" type="xml">
                 <form string="Session Form">
+                    <header>
+                        <!-- muestra el boton 'name' cuando este en el estado 'states' -->   
+                        <button name="action_draft" type="object" string="Resetear a Borrador" states="confirmed,done"/>
+                        <!-- el class="oe_highlight" muestra el boton de un color -->
+                        <button name="action_confirm" type="object" string="Confirmar" states="draft" class="oe_highlight"/>
+                        <button name="action_done" type="object" string="Hecho!!" states="confirmed" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
                     <sheet>
                          <group string = "General">
                             <!-- <field name="course_id" options="{'no_create': True}"/> quita la opcion de crear al desplegar el dropdown-->
@@ -25,6 +33,7 @@
                             <field name="start_date"/>
                             <field name="duration"/>
                             <field name="end_date"/>
+                            <field name="hours"/>
                             <field name="seats"/>
 
                         </group>

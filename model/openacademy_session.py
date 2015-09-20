@@ -39,10 +39,19 @@ class Session(models.Model):
 
 	end_date = fields.Date(string="Fecha de final", store=True, compute='_get_end_date', inverse='_set_end_date')
 
-	hours = fields.Float(string="Duration in hours", compute='_get_hours', inverse='_set_hours')
+	hours = fields.Float(string="Duracion en horas", compute='_get_hours', inverse='_set_hours')
 	attendees_count = fields.Integer(string="Attendees count", compute='_get_attendees_count', store=True)
 
 	color = fields.Integer()
+
+
+	'''
+	En la tupla siginifica ('nombre_en_BD', "Nombre_Vista")
+	'''
+
+	state = fields.Selection([('draft', "Borrador"),('confirmed', "Confirmado"),('done', "Listo"),], default='draft')
+
+
 	''' 
 	# _taken_seats: es el compute field
 	Los campos "compute" son readonly (son resultados de un cómputo por lo que no pueden capturarse)
@@ -155,3 +164,16 @@ class Session(models.Model):
 	def _get_attendees_count(self):
 		for r in self:
 			r.attendees_count = len(r.attendee_ids)			
+
+
+	@api.multi
+	def action_draft(self):
+	    self.state = 'draft'
+
+	@api.multi
+	def action_confirm(self):
+		self.state = 'confirmed'
+
+	@api.multi
+	def action_done(self):
+	    self.state = 'done'			
