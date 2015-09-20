@@ -64,7 +64,7 @@
             </field>
         </record>	
 
-		<!-- al clickear la barra de busqueda se obtienen opciones para buscar por nombre o por descripcion
+		<!-- al clickear la barra de busqueda se obtienen opciones para buscar por nombre, por descripcion o mas -->
         <record model="ir.ui.view" id="course_search_view">
             <field name="name">course.search.view</field>
             <field name="model">openacademy.course</field>
@@ -72,10 +72,16 @@
                 <search>
                     <field name="name"/>
                     <field name="description"/>
+                    <!-- el responsable del curso es el usuario reconocido por uid--> 
+                    <filter name="my_courses" string="Mis Cursos" domain="[('responsible_id', '=', uid)]"/>
+                    <group string="Group By">
+                        <!-- a este filtro se le agrega como contexto un diccionario 'group_by':'nombre_de_campo_a_agrupar'-->
+                        <filter name="by_responsible" string="Responsable" context="{'group_by': 'responsible_id'}"/>
+                    </group>                    
                 </search>
             </field>
         </record>
-		-->
+
 
         <!-- se encarga de la vista de los 'courses', de como se verán, del tipo de vista y de la ayuda, es lo que acciona cada curso-->
 		<record model="ir.actions.act_window" id="course_list_action">
@@ -83,6 +89,9 @@
 	        <field name="res_model">openacademy.course</field>
 	        <field name="view_type">form</field>
 	        <field name="view_mode">tree,form</field>
+            <!-- Se va a cumplir  por defecto cuando se entre a este menú, que este activado "my_courses" en 1
+            en el contexto del proyecto, solo permitira ver mis propios cursos, a menos que quite el filtro-->
+            <field name="context" eval="{'search_default_my_courses': 1}"/>              
 	        <field name="help" type="html">
 	        	<p class = "oe_view_nocontent_create">Crear el primer curso
 	        		
