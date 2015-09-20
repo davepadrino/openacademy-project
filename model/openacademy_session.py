@@ -38,7 +38,7 @@ class Session(models.Model):
 
 	end_date = fields.Date(string="Fecha de final", store=True, compute='_get_end_date', inverse='_set_end_date')
 
-
+	hours = fields.Float(string="Duration in hours", compute='_get_hours', inverse='_set_hours')
 
 
 	''' 
@@ -138,3 +138,13 @@ class Session(models.Model):
 			start_date = fields.Datetime.from_string(r.start_date)
 			end_date = fields.Datetime.from_string(r.end_date)
 			r.duration = (end_date - start_date).days + 1					
+
+
+	@api.depends('duration')
+	def _get_hours(self):
+		for r in self:
+			r.hours = r.duration * 24
+
+	def _set_hours(self):
+		for r in self:
+			r.duration = r.hours / 24			
