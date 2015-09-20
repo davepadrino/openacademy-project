@@ -17,6 +17,7 @@ class Session(models.Model):
 	duration = fields.Float(digits=(6, 2), help="Duracion en dias")
 	seats = fields.Integer(string="Numero de Asientos")
 	instructor_id = fields.Many2one('res.partner', string="Instructor", domain=['|', ('instructor', '=', True),('category_id.name', 'ilike', "Teacher")])
+	
 	'''
 	el primer campo es el nombre del campo al cual se hace referencia (nombre a referenciar en partner.py)
 	
@@ -41,6 +42,7 @@ class Session(models.Model):
 	hours = fields.Float(string="Duration in hours", compute='_get_hours', inverse='_set_hours')
 	attendees_count = fields.Integer(string="Attendees count", compute='_get_attendees_count', store=True)
 
+	color = fields.Integer()
 	''' 
 	# _taken_seats: es el compute field
 	Los campos "compute" son readonly (son resultados de un cómputo por lo que no pueden capturarse)
