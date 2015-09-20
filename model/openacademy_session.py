@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import timedelta
 from openerp import models, fields, api, exceptions
 
 class Session(models.Model):
@@ -28,10 +29,21 @@ class Session(models.Model):
 	taken_seats = fields.Float(string="Asientos Ocupados", compute='_taken_seats') 
 	active = fields.Boolean(default=True)  # Active sirve para eliminado lógico, desaparece de la pantalla de activos, 
 											#se puede buscar con una busqueda avanzada por los campos activos = False
+	'''
+	"inverse" premite hacer operaciones de dfrag and drop
+	"store = True" -> los campos "compute" no son almacenados por defecto, por lo que al colocar este campo en True, se guardaran inmediatamente
+	despues de procesarse con "compute"
+	'''										
+
+
+	end_date = fields.Date(string="Fecha de final", store=True, compute='_get_end_date', inverse='_set_end_date')
+
+
+
 
 	''' 
 	# _taken_seats: es el compute field
-
+	Los campos "compute" son readonly (son resultados de un cómputo por lo que no pueden capturarse)
 	@api.one -> Este Decorador solo genera una Instancia de una Clase en Odoo, itera en registros de un conjunto de registros
 				Decorador de registros que espera recibir self para crear una instancia singular de una clase Odoo. Adicionalmente
 				iterará entre regitros y creara una lista con los resultados.
@@ -98,3 +110,31 @@ class Session(models.Model):
 			for r in self:
 				if r.instructor_id and r.instructor_id in r.attendee_ids:   #atendee_ids es un listado
 					raise exceptions.ValidationError("Un instructor no puede ser su mismo asistente")            
+
+	'''
+	metodos get y set end_date
+	'''
+	@api.depends('start_date', 'duration')
+	def _get_end_date(self):
+		for r in self:
+			# si no tengo fecha de inicio ni duracion, la fecha de fin = fecha de inicio.	
+			if not (r.start_date and r.duration):
+				r.end_date = r.start_date
+				continue					
+            # Add duration to start_date, but: Monday + 5 days = Saturday, so
+            # subtract one second to get on Friday instead
+			start = fields.Datetime.from_string(r.start_date)
+			# Se le sumara la duracion del curso a la fecha de inicio
+			duration = timedelta(days=r.duration, seconds=-1)
+			r.end_date = start + duration	
+
+	def _set_end_date(self):
+		for r in self:
+			if not (r.start_date and r.end_date):
+				continue
+
+            # Compute the difference between dates, but: Friday - Monday = 4 days,
+            # so add one day to get 5 days instead
+			start_date = fields.Datetime.from_string(r.start_date)
+			end_date = fields.Datetime.from_string(r.end_date)
+			r.duration = (end_date - start_date).days + 1					
