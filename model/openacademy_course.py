@@ -16,6 +16,34 @@ class Course(models.Model):
 	description = fields.Text(string='Description')  #asume required=False, el string es lo que se vera en el formulario
 	responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True)  #un curso tiene un responsable
 	session_ids = fields.One2many('openacademy.session', 'course_id')
+
+	
+	'''
+	copy es un metodo interno de Odoo, pero al llamar a la funcion super (en el return), permitiendo llamar a la funcion copy original 
+	pero indicandole que no se altere su funcionamiento nativo.
+	El default recibe el nombre de los campos ue se vana  duplicar
+
+	copied_count invoca a search_count, devuelve un entero con el numero de coincidencias que tenga, reibe un domain
+
+	dict() crea un diccionario desde el campo que reciba
+	'''
+
+	@api.multi
+	def copy(self, default=None):
+		default = dict(default or {})
+		copied_count = self.search_count(
+			[('name', '=like', u"Copia de {}%".format(self.name))])
+		if not copied_count:
+			new_name = u"Copia de {}".format(self.name)
+		else:
+			new_name = u"Copia de {} ({})".format(self.name, copied_count)
+
+		default['name'] = new_name
+		return super(Course, self).copy(default)
+
+
+
+
 	'''
 	Permite hacer _sql_constraints a nivel de base de datos
 	'''

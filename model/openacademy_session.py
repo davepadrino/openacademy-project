@@ -36,6 +36,8 @@ class Session(models.Model):
 				Decorador de registros que espera recibir self para crear una instancia singular de una clase Odoo. Adicionalmente
 				iterará entre regitros y creara una lista con los resultados.
 				Si hay un decorador @returns, se concatena con las instancias resultantes  	
+				Al utilizar un api.one decorator los parametros 'cr' (cursor de la BD), 'uid'(usuario de la BD), 
+				'id' (identificador del registro) y 'context'(es un diccionario de python usado para cierta data a un metodo), se desaparecen de los parametros de una funcion nueva o heredada
 
 
 	@api.depends() -> Este Decorador es utilizado para campos Calculados, o campos que requieran obtener un listado de valores
