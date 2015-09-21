@@ -28,7 +28,9 @@
         'view/openacademy_course_view.xml',
         'view/openacademy_session_view.xml',
         'view/partner_view.xml',
-        'workflow/openacademy_session_workflow.xml'
+        'workflow/openacademy_session_workflow.xml',
+        'security/security.xml', #ojo con el orden de declaracion de archivos
+        'security/ir.model.access.csv',
 
         # 'security/ir.model.access.csv',
     ],
