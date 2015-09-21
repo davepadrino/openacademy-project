@@ -7,7 +7,8 @@
             <field name="arch" type="xml">
                 <form string="Agregar Asistentes">
                     <group>
-                        <field name="session_wiz_id"/>
+                        <!--<field name="session_wiz_id"/> para cuando es una sola sesion -->
+                        <field name="session_wiz_ids"/>
                         <field name="attendee_wiz_ids"/>
                     </group>
                     <footer>
@@ -29,5 +30,9 @@
                     view_mode="form"
                     target="new"
                     key2="client_action_multi"/>
+
+        <menuitem id="menu_launch_session_wizard" name="Agregar assitente masivo"
+                  parent="openacademy.openacademy_menu"
+                  action="launch_session_wizard" groups ="openacademy.openacademy_group_manager"/>            
     </data>
 </openerp>
