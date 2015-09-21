@@ -31,6 +31,7 @@
         'workflow/openacademy_session_workflow.xml',
         'security/security.xml', #ojo con el orden de declaracion de archivos
         'security/ir.model.access.csv',
+        'view/openacademy_wizard_view.xml'
 
         # 'security/ir.model.access.csv',
     ],
