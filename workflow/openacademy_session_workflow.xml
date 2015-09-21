@@ -7,25 +7,61 @@
             <field name="osv">openacademy.session</field>
             <field name="on_create">True</field>
         </record>
+
+         <!-- definicion del action_server-->   
+             <!-- ref=modelo openacademy.session (python), solo que virtualmente se le agrega el prefijo model_-->
+             <!-- Browse instancia uno o mas objetos del modelo involucrado (openacademy_Sesion)-->
+             <!-- context['active_ids'] -> active_ids es lo que la vista me manda de donde estoy parado-->   
+        <record model="ir.actions.server" id="set_session_to_draft">
+            <field name="name">Set session to Draft</field>
+            <field name="model_id" ref="model_openacademy_session"/>
+            <field name="code">
+model.search([('id', 'in', context['active_ids'])]).action_draft()
+            </field>
+        </record>
+
         <!-- inicio activities-->
+                <!-- activity draft-->
         <record model="workflow.activity" id="activity_draft">
             <field name="name">Draft</field>
             <field name="wkf_id" ref="wkf_session"/>
             <field name="flow_start" eval="True"/>  <!-- Es el primer estado y se le coloca flow_start-->
-            <field name="kind">function</field>
-            <field name="action">action_draft()</field> <!-- las action deben tener el nombre de la funcion en el modelo (session.py)-->
+            <!--<field name="action">action_draft()</field>  las action deben tener el nombre de la funcion en el modelo (session.py)-->
+            <field name="kind">dummy</field>
+            <field name="action"></field>
+            <field name="action_id" ref="set_session_to_draft"/>
         </record>
+
+                <!-- activity confirmed-->
+        <record model="ir.actions.server" id="set_session_to_confirmed">
+            <field name="name">Set session to Confirmed</field>
+            <field name="model_id" ref="model_openacademy_session"/>
+            <field name="code">
+model.search([('id', 'in', context['active_ids'])]).action_confirm()
+            </field>
+        </record>           
         <record model="workflow.activity" id="activity_confirmed">
             <field name="name">Confirmed</field>
             <field name="wkf_id" ref="wkf_session"/>
-            <field name="kind">function</field>
-            <field name="action">action_confirm()</field>
+            <field name="kind">dummy</field>
+            <field name="action"></field>
+            <field name="action_id" ref="set_session_to_confirmed"/>
         </record>
+
+                <!-- activity done-->
+        <record model="ir.actions.server" id="set_session_to_done">
+            <field name="name">Set session to Done</field>
+            <field name="model_id" ref="model_openacademy_session"/>
+            <field name="code">
+model.search([('id', 'in', context['active_ids'])]).action_done()
+            </field>
+        </record>        
         <record model="workflow.activity" id="activity_done">
             <field name="name">Done</field>
             <field name="wkf_id" ref="wkf_session"/>
-            <field name="kind">function</field>
-            <field name="action">action_done()</field>
+            <field name="kind">dummy</field>
+            <field name="action"></field>
+            <field name="action_id" ref="set_session_to_done"/>
         </record>
         <!-- inicio transitions -->
         <record model="workflow.transition" id="session_draft_to_confirmed">
@@ -55,3 +91,4 @@
         </record>
     </data>
 </openerp>
+

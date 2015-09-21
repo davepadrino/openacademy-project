@@ -13,7 +13,7 @@
             <field name="arch" type="xml">
                 <form string="Session Form">
                     <header>
-                        <!-- muestra el boton 'name' cuando este en el estado 'states' -->   
+                        <!-- muestra el boton 'name' cuando este en el estado 'states' -->  
                         <button name="button_draft" type="workflow" string="Resetear a Borrador" states="confirmed,done"/>
                         <!-- el class="oe_highlight" muestra el boton de un color -->
                         <button name="button_confirm" type="workflow" string="Confirmar" states="draft" class="oe_highlight"/>
