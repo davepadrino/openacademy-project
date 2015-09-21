@@ -48,8 +48,9 @@ class Session(models.Model):
 	'''
 	En la tupla siginifica ('nombre_en_BD', "Nombre_Vista")
 	'''
+	#state = fields.Selection([('draft', "Borrador"),('confirmed', "Confirmado"),('done', "Listo"),], default='draft') sin workflow
 
-	state = fields.Selection([('draft', "Borrador"),('confirmed', "Confirmado"),('done', "Listo"),], default='draft')
+	state = fields.Selection([('draft', "Borrador"),('confirmed', "Confirmado"),('done', "Listo"),])
 
 
 	''' 
