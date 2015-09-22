@@ -32,6 +32,7 @@
         'security/security.xml', #ojo con el orden de declaracion de archivos
         'security/ir.model.access.csv',
         'view/openacademy_wizard_view.xml'
+        'report/openacademy_session_report.xml'
 
         # 'security/ir.model.access.csv',
     ],
