@@ -13,20 +13,22 @@
     <template id="report_session_view"> <!-- el name de la etiqueta "report" debe coincidir con el id de "template"-->
         <t t-call="report.html_container">
             <t t-foreach="docs" t-as="doc"> <!-- ciclo for de docs: por cada doc que entre llamo al layout-->
-                <t t-call="report.external_layout"> <!-- este leyout es el que llama cada doc q entra, contiene los estilos-->
+               <!-- <t t-call="report.external_layout">  este leyout es el que llama cada doc q entra, contiene los estilos-->
                     <div class="page"> <!-- lo que lleva el reporte como tal-->
                         <h2 t-field="doc.name"/>
                         <!-- doc.start_date -> doc hace referencia al modelo openacademy.session y de ahi toma el start_date y el doc.name, es decir, el nombre de la sesion-->
+                        <h2 t-field="doc.course_id.name"/>
                         <p>Desde <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/></p>
                         <h3>Asistentes:</h3>
                         <ul>
                         	<!-- ciclo for de asistentes-->
                             <t t-foreach="doc.attendee_ids" t-as="attendee">
                                 <li><span t-field="attendee.name"/></li>
+                                <li><span t-field="attendee.email"/></li>
                             </t>
                         </ul>
                     </div>
-                </t>
+               <!-- </t> -->
             </t>
         </t>
     </template>
