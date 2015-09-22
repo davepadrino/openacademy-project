@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+	<!-- report_session es el id que se referenciara en los demas puntos, file hereda este nombre -->
+    <report
+        id="report_session"
+        model="openacademy.session"
+        string="Session Report"
+        name="openacademy.report_session_view"
+        file="openacademy.report_session"
+        report_type="qweb-pdf" />
+
+    <template id="report_session_view"> <!-- el name de la etiqueta "report" debe coincidir con el id de "template"-->
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc"> <!-- ciclo for de docs: por cada doc que entre llamo al layout-->
+                <t t-call="report.external_layout"> <!-- este leyout es el que llama cada doc q entra, contiene los estilos-->
+                    <div class="page"> <!-- lo que lleva el reporte como tal-->
+                        <h2 t-field="doc.name"/>
+                        <!-- doc.start_date -> doc hace referencia al modelo openacademy.session y de ahi toma el start_date y el doc.name, es decir, el nombre de la sesion-->
+                        <p>Desde <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/></p>
+                        <h3>Asistentes:</h3>
+                        <ul>
+                        	<!-- ciclo for de asistentes-->
+                            <t t-foreach="doc.attendee_ids" t-as="attendee">
+                                <li><span t-field="attendee.name"/></li>
+                            </t>
+                        </ul>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</data>
+</openerp>
